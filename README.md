@@ -35,6 +35,33 @@ This demo demonstrates the use of 3 different messaging platforms and the abilit
 The demo runs a basic simulator that produces events. The event chains are triggered every 60 seconds and they simulate the creation of a user, the user getting a session stored in Redis and the sending of user data to a legacy system using ActiveMQ.
 The simulation also shows a series of bids and asks on a product, eventually resulting in a match which creates an order.
 
+![Image](images/home_page.PNG?raw=true)
+This image shows the home page. The home page consists of a bar graph that shows the topics and the amount of messages from each topic. It also has a bubble chart that depicts the amount of messages processed per day per hour. This is to bring any attention to times of the day where message flow is high.
+The "Latest messages" section is a live display of the last 50 messages processed. The charts do not automatically update, so the page needs to be refreshed to reflect the latest numbers. 
+
+
+Click on the menu button and select "Topics". This will bring you to a list of all the topics available.
+
+![Image](images/topics.PNG?raw=true)
+
+The topics page displays the topic names along with the amount of messages processed for each topic. If you click the "eye" icon, you'll be able to see messages processed from that topic. Go ahead and click on "DEMO-KAFKA_ORDER_TOPIC".
+
+![Image](images/topic.PNG?raw=true)
+
+In the topic page for the "DEMO-KAFKA_ORDER_TOPIC" you can view all the order events with the newest order first. If you click the drop down error to the left of the message you can traverse through the message headers and payload. Now let's click on the correlationId values for one of the orders. This will allow us to view all the messages all the way to the message that was the root cause.
+
+![Image](images/tags.PNG?raw=true)
+
+The "Message Hops for correlationId" shows the topics and time from the root cause message to the final event. The "Time Since Last Topic" displays the time between when the correlationId was last seen in a topic.
+The "Message for correlationId" displays the message starting with the root cause message and the events triggered by it.
+
+Now let's go to the menu in the upper left corner and click the search button in order to go to the search screen.
+
+![Image](images/search.PNG?raw=true)
+
+The search page allows you to search by specific tag values, header keys and values, or text within the payload. In this example we performed a search for messages that contained the text "Yeezy".
+
+
 ## How to build
 
 #### Configuration
