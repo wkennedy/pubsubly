@@ -28,11 +28,11 @@
             <artifactId>pubsubly-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.github.wkennedy.pubsubly</groupId>
-            <artifactId>redis-message-header-plugin</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.wkennedy.pubsubly</groupId>-->
+<!--            <artifactId>redis-message-header-plugin</artifactId>-->
+<!--            <version>1.0.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
 <!--        TODO implement webflux for message streaming-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

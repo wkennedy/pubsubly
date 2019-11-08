@@ -169,6 +169,22 @@ Once that's done you can run:
 
 and then navigate to http://localhost:3001 in your browser.
 
+## Custom Plugins
+
+Using the pubsubly-api you can create a new plugin to process message in order to track based on specific data. For an example see: https://github.com/wkennedy/pubsubly/tree/master/redis-message-header-plugin
+
+There are three basic parts to the plugin:
+
+1. Create a plugin that implements com.github.wkennedy.pubsubly.api.Processor. The processor will return the value that you want to track. In the case of RedisMessageHeaderProcessorPlugin we are looking header values that are actually in the payload.
+
+2. Create a @Configuration for your plugin. The bean name will be used as the id for your plugin-processors -> processor configuration as mentioned above.
+
+3. Create spring.factories in /resources/META-INF of your project. This is used by Spring to autoconfigure your plugin when you include it as a dependency in the pubsubly-service.
+
+        org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+        com.github.wkennedy.pubsubly.rmhpp.plugins.RedisMessageHeaderProcessorConfig
+        
+
 ## Useful Endpoints
 
 http://localhost:9000/swagger-ui.html
