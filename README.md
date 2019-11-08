@@ -35,6 +35,16 @@ NOTE: If you have trouble with ports due to applications on your machine already
     then
     docker-compose -f docker-compose-demo.yml up
 
+Then you might have to use volumes and uncomment the Zookeeper and Kafka volumes in the docker-compose-demo.yml file.
+
+      #    volumes:
+      #      - ./zk-single-kafka-single/zoo1/data:/data
+      #      - ./zk-single-kafka-single/zoo1/datalog:/datalog
+      and
+      #    volumes:
+      #      - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+   
+
 ## Demo Walk-through
 This demo demonstrates the use of 3 different messaging platforms and the ability of Pubsubly to track the correlation of messages across the different systems (Kafka, Redis, ActiveMQ).
 
