@@ -10,12 +10,16 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.integration.redis.inbound.RedisInboundChannelAdapter;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.util.StringUtils;
 
 @Configuration
 public class RedisConfiguration {
 
-    @Value("${redis.topic.pattern}")
+    @Value("${redis.topic.pattern:@null}")
     private String redisTopicPattern;
+
+    @Value("${redis.topic.names:@null}")
+    private String[] redisTopicNames;
 
     @Bean
     StringRedisTemplate stringRedisTemplate(RedisConnectionFactory connectionFactory) {
@@ -25,7 +29,12 @@ public class RedisConfiguration {
     @Bean
     public RedisInboundChannelAdapter redisInboundChannelAdapter(RedisConnectionFactory redisConnectionFactory, @Autowired MessageChannel inboundMessageChannel) {
         RedisInboundChannelAdapter redisInboundChannelAdapter = new RedisInboundChannelAdapter(redisConnectionFactory);
-        redisInboundChannelAdapter.setTopicPatterns(redisTopicPattern);
+        if(StringUtils.isEmpty(redisTopicPattern)) {
+            redisInboundChannelAdapter.setTopics(redisTopicNames);
+        } else {
+            redisInboundChannelAdapter.setTopicPatterns(redisTopicPattern);
+        }
+        redisInboundChannelAdapter.setTopics();
         redisInboundChannelAdapter.setOutputChannel(inboundMessageChannel);
 
         return redisInboundChannelAdapter;

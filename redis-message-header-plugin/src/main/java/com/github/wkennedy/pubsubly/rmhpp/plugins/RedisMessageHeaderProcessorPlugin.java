@@ -19,6 +19,10 @@ public class RedisMessageHeaderProcessorPlugin implements Processor {
     private Gson gson = new Gson();
 
     public String process(Message message, MessageHeaders headers, Tag tag) {
+        if (!headers.containsKey(redis_messageSource)) {
+            return null;
+        }
+
         Map map;
         try {
             map = gson.fromJson((String) message.getPayload(), Map.class);
@@ -28,9 +32,7 @@ public class RedisMessageHeaderProcessorPlugin implements Processor {
 
         if (map.containsKey("headers")) {
             Map<String, String> nestedHeaders = (Map<String, String>) map.get("headers");
-            if(nestedHeaders.containsKey(redis_messageSource)) {
-                return nestedHeaders.get(tag.getValue());
-            }
+            return nestedHeaders.get(tag.getValue());
         }
 
         return null;

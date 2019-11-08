@@ -24,6 +24,7 @@ import org.springframework.retry.policy.ExceptionClassifierRetryPolicy;
 import org.springframework.retry.policy.NeverRetryPolicy;
 import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -37,8 +38,11 @@ public class KafkaConfig {
 
     private final KafkaProperties kafkaProperties;
 
-    @Value("${kafka.topic.pattern}")
+    @Value("${kafka.topic.pattern:@null}")
     private String topicPattern;
+
+    @Value("${kafka.topic.names:@null}")
+    private String[] topicNames;
 
     public KafkaConfig(KafkaProperties kafkaProperties) {
         this.kafkaProperties = kafkaProperties;
@@ -104,7 +108,12 @@ public class KafkaConfig {
 
     @Bean
     public ConcurrentMessageListenerContainer<String, String> kafkaListener() {
-        ContainerProperties containerProperties = new ContainerProperties(Pattern.compile(topicPattern));
+        ContainerProperties containerProperties;
+        if(StringUtils.isEmpty(topicPattern)) {
+            containerProperties = new ContainerProperties(topicNames);
+        } else {
+            containerProperties = new ContainerProperties(Pattern.compile(topicPattern));
+        }
         ConcurrentMessageListenerContainer<String, String> stringStringConcurrentMessageListenerContainer = new ConcurrentMessageListenerContainer<>(consumerFactory(), containerProperties);
         stringStringConcurrentMessageListenerContainer.setConcurrency(1);
         return stringStringConcurrentMessageListenerContainer;

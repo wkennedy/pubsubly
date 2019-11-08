@@ -89,7 +89,7 @@ services:
 #      - "15672:15672"
 
   pubsubly-service:
-    image: "waggins/pubsubly-service-demo"
+    image: "waggins/pubsubly-service-demo:v1"
     networks:
       - pubsubly-network
     ports:
@@ -100,7 +100,7 @@ services:
       - kafka1
 #
   pubsubly-ui:
-    image: "waggins/pubsubly-ui"
+    image: "waggins/pubsubly-ui:v1"
     networks:
       - pubsubly-network
     ports:

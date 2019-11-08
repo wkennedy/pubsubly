@@ -32,7 +32,6 @@ spring:
 #    properties:
 #      dialect: org.hibernate.dialect.H2Dialect
 
-
 activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
 kafka.topic.pattern: DEMO-.*
 redis.topic.pattern: REDIS-USER-SESSION

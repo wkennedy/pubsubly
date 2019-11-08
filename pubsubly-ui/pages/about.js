@@ -61,6 +61,9 @@ class About extends Component {
                                             <li>
                                                 ActiveMQ
                                             </li>
+                                            <li>
+                                                Redis
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -74,9 +77,6 @@ class About extends Component {
                             />
                             <CardContent>
                                 <ul>
-                                    <li>
-                                        Security
-                                    </li>
                                     <li>
                                         Sequence classification and machine learning for anomaly detection
                                     </li>
