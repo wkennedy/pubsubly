@@ -1,0 +1,25 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: pubsubly-group-id
+      auto-offset-reset: earliest
+  activemq:
+    broker-url: failover://tcp://localhost:61616
+  jms:
+    pub-sub-domain: true
+
+activemq.topic.names: test-topic,test-topic2
+kafka.topic.pattern: TOPIC-.*
+
+plugin-processors:
+  processors:
+    - id: headerProcessorPlugin
+      tags:
+        - id: kafka_receivedTopic
+          value: kafka_receivedTopic
+        - id: eventId
+          value: eventId
+          description: This is the event ID
+        - id: correlationId
+          value: correlationId

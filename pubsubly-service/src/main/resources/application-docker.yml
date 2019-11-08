@@ -1,0 +1,56 @@
+
+spring:
+  health:
+    jms:
+      enabled: false
+  kafka:
+    bootstrap-servers: kafka1:19092
+    consumer:
+      group-id: pubsubly-demo
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      ack-mode: record
+
+  activemq:
+    broker-url: failover://tcp://activemq:61616
+  jms:
+    pub-sub-domain: true
+
+#  datasource:
+#    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#  liquibase:
+#    enabled: false
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#      database-platform: org.hibernate.dialect.H2Dialect
+#    properties:
+#      dialect: org.hibernate.dialect.H2Dialect
+
+
+kafka.topic.pattern: PREFIX-.*
+
+plugin-processors:
+  tags:
+    - id: eventId
+      value: eventId
+      description: This is the event ID
+      isPrimaryMessageId: true
+      display: false
+    - id: correlationId
+      value: correlationId
+      description: This is the correlation ID
+      isMessageCorrelationId: true
+    - id: eventName
+      value: eventName
+      description: This is the event name
+  processors:
+    - id: headerProcessorPlugin
+
+persistMessages.enabled: false
+server:
+  port: 9000
