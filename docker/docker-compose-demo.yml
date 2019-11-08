@@ -89,7 +89,7 @@ services:
 #      - "15672:15672"
 
   pubsubly-service:
-    image: "waggins/pubsubly-service-demo:v1"
+    image: "waggins/pubsubly-service-demo:v2"
     networks:
       - pubsubly-network
     ports:
