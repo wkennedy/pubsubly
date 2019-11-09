@@ -27,7 +27,45 @@ Then from pubsubly/docker run:
 
 Once everything is up and running you can navigate to http://localhost:3001 and see the Pubsubly UI interface.
 
-NOTE: If you have trouble with ports due to applications on your machine already utilizing those ports, please edit the ports in the docker-compose-demo.yml (or docker-compose.yml) file appropriately.
+## Common issues
+
+- If you have trouble with ports due to applications on your machine already utilizing those ports, please edit the ports in the docker-compose-demo.yml (or docker-compose.yml) file appropriately.
+
+- One way to fix the offsets if they get screwed up in your container is to do the following:
+
+  Get the container id of the Kafka service using
+
+       docker ps
+       
+  Then login into that service with:
+
+      docker exec -it <container id> /bin/bash
+    
+  Then go to usr/bin
+
+      cd /usr/bin
+     
+  And execute
+
+      ./kafka-consumer-groups --bootstrap-server localhost:9092 --reset-offsets --to-latest --group pubsubly-group --all-topics --execute
+
+  You can also modify topics and delete consumer groups from here.
+
+- If you are facing issues with Kafka brokers and old volume data and not all the data is showing up in the UI, try this:  
+
+      docker-compose -f .\docker-compose-demo.yml up -d --force-recreate --renew-anon-volumes
+  then
+      docker-compose -f docker-compose-demo.yml up
+
+  Then you might have to use volumes and uncomment the Zookeeper and Kafka volumes in the docker-compose-demo.yml file.
+
+      #    volumes:
+      #      - ./zk-single-kafka-single/zoo1/data:/data
+      #      - ./zk-single-kafka-single/zoo1/datalog:/datalog
+      and
+      #    volumes:
+      #      - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+   
 
 ## Demo Walk-through
 This demo demonstrates the use of 3 different messaging platforms and the ability of Pubsubly to track the correlation of messages across the different systems (Kafka, Redis, ActiveMQ).
