@@ -134,23 +134,29 @@ The search page allows you to search by specific tag values, header keys and val
 
 #### Configuration
 
+Configuration for the pubsubly-service is done through the application.yml file in pubsubly-service main resources (pubsubly\pubsubly-service\src\main\resources\application.yml).
+
 Configurations for Kafka, ActiveMQ, and Redis utilize Spring's autoconfigurations for these services, so use the Spring common applications to configure your application for those platforms. The properties can be found here:
 
 https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
 
-In order to listen to topics on Kafka, you can set the topics either as a pattern or a list of topics:
+Kafka:  In order to listen to topics on Kafka, you can set the topics either as a pattern or a list of topics:
 
     kafka.topic.pattern: <PREFIX>.*
     or
     kafka.topic.names: TOPIC1,TOPIC2
 
-Redis topic pattern configuration is (configure one or the other):
+Redis:  Redis topic pattern configuration is (configure one or the other):
 
     redis.topic.pattern: REDISTOPIC
     or
     redis.topic.names: REDISTOPIC1,REDISTOPIC2
+    
+For Redis also remove this from the autoconfigure exclude:
 
-ActiveMQ requires a comma separated list:
+    org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+
+ActiveMQ:  ActiveMQ requires a comma separated list:
 
     activemq.topic.names: TOPIC1,TOPIC2
         
@@ -180,7 +186,7 @@ The main configuration for Pubsubly is setting the plugin-processors. The proces
 Let's go over the demo configuration as an example. The tags have the following properties:
 
 - id: this is a unique identifier for the tag and is used internally for tracking messages
-- value: this is the value in the message that you want to tag and track, in this example it's a header value.
+- value: this is the value in the message that you want to tag and track, in this example it's a header key.
 - description: this is the description of the data you are tagging. It can be used for clients such as the UI.
 - display: whether this tag should display in the UI
 - isPrimaryMessageId: specifies if this value is used a the unique identification of the message
