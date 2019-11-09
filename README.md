@@ -33,30 +33,31 @@ Once everything is up and running you can navigate to http://localhost:3001 and 
 
 - One way to fix the offsets if they get screwed up in your container is to do the following:
 
-Get the container id of the Kafka service using
+  Get the container id of the Kafka service using
 
        docker ps
        
-Then login into that service with:
+  Then login into that service with:
 
-    docker exec -it <container id> /bin/bash
+      docker exec -it <container id> /bin/bash
     
-Then go to usr/bin
+  Then go to usr/bin
 
-     cd /usr/bin
+      cd /usr/bin
      
-And execute
+  And execute
 
-     ./kafka-consumer-groups --bootstrap-server localhost:9092 --reset-offsets --to-latest --group pubsubly-group --all-topics --execute
+      ./kafka-consumer-groups --bootstrap-server localhost:9092 --reset-offsets --to-latest --group pubsubly-group --all-topics --execute
 
-You can also modify topics and delete consumer groups from here.
+  You can also modify topics and delete consumer groups from here.
 
 - If you are facing issues with Kafka brokers and old volume data and not all the data is showing up in the UI, try this:  
 
-     docker-compose -f .\docker-compose-demo.yml up -d --force-recreate --renew-anon-volumes
-     docker-compose -f docker-compose-demo.yml up
+      docker-compose -f .\docker-compose-demo.yml up -d --force-recreate --renew-anon-volumes
+  then
+      docker-compose -f docker-compose-demo.yml up
 
-Then you might have to use volumes and uncomment the Zookeeper and Kafka volumes in the docker-compose-demo.yml file.
+  Then you might have to use volumes and uncomment the Zookeeper and Kafka volumes in the docker-compose-demo.yml file.
 
       #    volumes:
       #      - ./zk-single-kafka-single/zoo1/data:/data
