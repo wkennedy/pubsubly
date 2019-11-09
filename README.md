@@ -28,7 +28,7 @@ Then from pubsubly/docker run:
 Once everything is up and running you can navigate to http://localhost:3001 and see the Pubsubly UI interface.
 
 ## Quickstart - Local
-First follow the build instructions for building pubsubly-api and pubsubly-service below [link](README.md#How to build)
+First follow the build instructions for building pubsubly-api and pubsubly-service below [link to section](./README.md#How to build)
 Once you clone the repo, if you don't already have access to Kafka brokers you can start Kafka with the docker-compose.yml file in pubsubly/docker:
 
     docker-compose up
