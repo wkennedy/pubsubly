@@ -28,6 +28,7 @@ Then from pubsubly/docker run:
 Once everything is up and running you can navigate to http://localhost:3001 and see the Pubsubly UI interface.
 
 ## Quickstart - Local
+First follow the build instructions for building pubsubly-api and pubsubly-service below ([link](./README.md#How to build))
 Once you clone the repo, if you don't already have access to Kafka brokers you can start Kafka with the docker-compose.yml file in pubsubly/docker:
 
     docker-compose up
@@ -205,7 +206,16 @@ If you don't or can't install Maven, you can use the included Maven wrapper:
     ./mvnw install
     
 #### pubsubly-service
-In order to build the pubsubly-service you need Java 8 (and set JAVA_HOME) or above installed and Maven. In the pubsubly-service (pubsubly/pubsubly-service) root execute:
+NOTE: the pubsubly-api is not yet pushed to Maven Central, so you need to build it yourself before building pubsubly-service. Go to pubsubly/pubsubly-api and do:
+
+    mvn install
+
+If you don't or can't install Maven, you can use the included Maven wrapper:
+
+    ./mvnw install
+   
+
+Now build pubsubly-service. In order to build the pubsubly-service you need Java 8 (and set JAVA_HOME) or above installed and Maven. In the pubsubly-service (pubsubly/pubsubly-service) root execute:
 
     mvn install
 
