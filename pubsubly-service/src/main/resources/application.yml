@@ -1,8 +1,7 @@
+server:
+  port: 9000
 
 spring:
-  health:
-    jms:
-      enabled: false
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -11,12 +10,18 @@ spring:
       enable-auto-commit: false
     listener:
       ack-mode: record
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+  data:
+    redis:
+      repositories:
+        enabled: false
+persistMessages.enabled: false
 
-
-  activemq:
-    broker-url: failover://tcp://localhost:61616
-  jms:
-    pub-sub-domain: true
+#  activemq:
+#    broker-url: failover://tcp://localhost:61616
+#  jms:
+#    pub-sub-domain: true
 
 #  datasource:
 #    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1
@@ -32,9 +37,10 @@ spring:
 #    properties:
 #      dialect: org.hibernate.dialect.H2Dialect
 
-activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
+
 kafka.topic.pattern: DEMO-.*
-redis.topic.pattern: REDIS-USER-SESSION
+#activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
+#redis.topic.pattern: REDIS-USER-SESSION
 
 plugin-processors:
   tags:
@@ -50,13 +56,5 @@ plugin-processors:
     - id: eventName
       value: eventName
       description: This is the event name
-    - id: sku
-      value: sku
-      description: ID of the product
   processors:
     - id: headerProcessorPlugin
-    - id: redisMessageHeaderProcessorPlugin
-
-persistMessages.enabled: false
-server:
-  port: 9000

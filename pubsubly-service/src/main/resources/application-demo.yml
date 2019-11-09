@@ -8,9 +8,9 @@ spring:
     consumer:
       group-id: pubsubly-demo
       auto-offset-reset: earliest
-      enable-auto-commit: false
-    listener:
-      ack-mode: record
+#      enable-auto-commit: false
+#    listener:
+#      ack-mode: record
 
   activemq:
     broker-url: failover://tcp://activemq:61616
