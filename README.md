@@ -10,7 +10,7 @@ It does this by allowing users to group messages by metadata through the use of 
 
 Currently, the only messaging platforms supported are Kafka, ActiveMQ and Redis. Another limitation is that the rendering of the message payload is limited as media types aren't currently supported. Probably the biggest limitation is that it's not scalable beyond one instance.
 
-## Quickstart
+## Quickstart - Demo
 If all you want to do is see a demo of the application, you can run Pubsubly in demo mode. 
 
 First of all, you'll need to clone this project:
@@ -26,6 +26,36 @@ Then from pubsubly/docker run:
     docker-compose -f docker-compose-demo.yml up
 
 Once everything is up and running you can navigate to http://localhost:3001 and see the Pubsubly UI interface.
+
+## Quickstart - Local
+Once you clone the repo, if you don't already have access to Kafka brokers you can start Kafka with the docker-compose.yml file in pubsubly/docker:
+
+    docker-compose up
+    
+If you aren't running Kafka locally, then you'll have update the application.yml with the broker URLs. In the application.yml in the pubsubly-service resources, update:
+
+    spring:
+      kafka:
+        bootstrap-servers: localhost:9092    
+        
+Also update the topics you want to listen to either with a pattern OR topic names:
+
+    kafka.topic.pattern: DEMO-.*
+
+or
+
+    kafka.topic.names:
+    
+Then you can start the server either through you Spring-Boot supported IDE or from the pubsubly-service root:
+
+    mvn spring-boot:run
+    
+To run the pubsubly-ui go to the pubsubly-ui root and do:
+
+    npm install
+    npm run dev
+    
+Then navigate to localhost:3001 in your browser.
 
 ## Common issues
 
