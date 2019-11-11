@@ -45,7 +45,6 @@ public class MessageServiceTest {
         MessageResource messageResource = new MessageResource(message, headerKeyMap);
         messageCache.put(messageUUID, messageResource);
 
-        Cache<String, List<String>> topicCache = Caffeine.newBuilder().build();
         Map<String, Cache<String, MessageBundle>> cacheMap = new HashMap<>();
         MessageBundle messageBundle = new MessageBundle();
         messageBundle.setTag(tag);
@@ -65,7 +64,7 @@ public class MessageServiceTest {
 
         ProcessorService processorService = new ProcessorService(pluginProcessorProperties);
 
-        messageService = new MessageService(messageCache, cacheMap, latestMessageCache, processorService, topicCache);
+        messageService = new MessageService(messageCache, cacheMap, latestMessageCache, processorService);
     }
 
     @Test

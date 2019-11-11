@@ -28,6 +28,10 @@ public class CacheConfig {
         this.pluginProcessorProperties = pluginProcessorProperties;
     }
 
+    /**
+     *
+     * @return Map with the key being one of the configured Tag IDs and the value being a Cache with the value returned by the processor and a MessageBundle (List of message UUIDs associated with a Tag)
+     */
     @Bean("cacheMap")
     public Map<String, Cache<String, MessageBundle>> cacheMap() {
         Map<String, Cache<String, MessageBundle>> cacheMap = new HashMap<>();
@@ -53,21 +57,38 @@ public class CacheConfig {
         return cacheMap;
     }
 
+    /**
+     *
+     * @return Cache with the topic name and the list of message UUIDs in that topic
+     */
     @Bean
     public Cache<String, List<String>> topicCache() {
         return Caffeine.newBuilder().build();
     }
 
+    /**
+     *
+     * @return Cache with the message UUID as the key and the MessageResource (message and applicable tracking data)
+     */
     @Bean
     public Cache<String, MessageResource> messageCache() {
         return Caffeine.newBuilder().build();
     }
 
+    /**
+     *
+     * @return An evicting queue with the last 50 messages processed
+     */
     @Bean
     public Queue<MessageResource> latestMessageCache() {
         return create(50);
     }
 
+    //TODO make the schedule configurable
+
+    /**
+     * Evict all the caches weekly (every Saturday at midnight)
+     */
     @Scheduled(cron = "0 0 0 * * SAT")
     public void evictCaches() {
         topicCache().invalidateAll();
@@ -76,5 +97,6 @@ public class CacheConfig {
         for (Cache<String, MessageBundle> messageBundleCache : cacheCollection) {
             messageBundleCache.invalidateAll();
         }
+        latestMessageCache().clear();
     }
 }

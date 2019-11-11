@@ -2,14 +2,7 @@ package com.github.wkennedy.pubsubly.services;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.wkennedy.pubsubly.api.Tag;
-import com.github.wkennedy.pubsubly.models.Link;
-import com.github.wkennedy.pubsubly.models.MessageBundle;
-import com.github.wkennedy.pubsubly.models.MessageDetails;
-import com.github.wkennedy.pubsubly.models.MessageFlow;
-import com.github.wkennedy.pubsubly.models.MessageFlowStopover;
-import com.github.wkennedy.pubsubly.models.MessageResource;
-import com.github.wkennedy.pubsubly.models.MessageResourceBundle;
-import com.github.wkennedy.pubsubly.models.Node;
+import com.github.wkennedy.pubsubly.models.*;
 import com.github.wkennedy.pubsubly.util.HeaderUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.Message;
@@ -18,22 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -52,15 +30,12 @@ public class MessageService {
 
     private final ProcessorService processorService;
 
-    private final Cache<String, List<String>> topicCache;
-
     public MessageService(Cache<String, MessageResource> messageCache, @Qualifier("cacheMap") Map<String, Cache<String, MessageBundle>> cacheMap,
-                          @Qualifier("latestMessageCache") Queue<MessageResource> latestMessageCache, ProcessorService processorService, Cache<String, List<String>> topicCache) {
+                          @Qualifier("latestMessageCache") Queue<MessageResource> latestMessageCache, ProcessorService processorService) {
         this.messageCache = messageCache;
         this.cacheMap = cacheMap;
         this.latestMessageCache = latestMessageCache;
         this.processorService = processorService;
-        this.topicCache = topicCache;
     }
 
     public MessageResourceBundle messageResources(String key, String value) {

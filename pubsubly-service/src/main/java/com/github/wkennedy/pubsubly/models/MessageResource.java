@@ -5,6 +5,10 @@ import org.springframework.messaging.Message;
 
 import java.util.Map;
 
+/**
+ * A MessageResource is a wrapper around a Spring message with HATEOS support as well as a Map that contains
+ * the Tag ID as a key and the value of that tag that was discovered during processing.
+ */
 public class MessageResource extends ResourceSupport {
 
     private Message message;

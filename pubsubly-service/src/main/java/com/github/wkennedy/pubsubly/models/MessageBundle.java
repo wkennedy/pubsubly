@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * A MessageBundle is a list of message UUIDs associated with a specific Tag.
+ */
 public class MessageBundle {
 
     private Tag tag;

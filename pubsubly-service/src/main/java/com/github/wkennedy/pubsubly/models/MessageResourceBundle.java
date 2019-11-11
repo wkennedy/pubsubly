@@ -4,6 +4,9 @@ import com.github.wkennedy.pubsubly.api.Tag;
 
 import java.util.List;
 
+/**
+ * A MessageResourceBundle is a list of MessageResource objects associated with a specific Tag.
+ */
 public class MessageResourceBundle {
 
     public MessageResourceBundle(Tag tag, List<MessageResource> messageResources) {
