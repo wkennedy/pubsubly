@@ -93,6 +93,10 @@ public class MessageService {
         Tag primaryIdTag = processorService.getPrimaryMessageId();
         Tag correlationIdTag = processorService.getMessageCorrelationId();
 
+        if(primaryIdTag == null || correlationIdTag == null) {
+            return new HashSet<>();
+        }
+
         Set<MessageResource> correlatedMessages = new HashSet<>();
         if (key.equals(primaryIdTag.getId())) {
             for (MessageResource message : messages) {
@@ -107,7 +111,6 @@ public class MessageService {
         }
 
         return correlatedMessages;
-
     }
 
     private List<MessageResource> messageDetailsForCorrelationId(MessageResource messageResource, List<MessageResource> correlatedMessageResources) {
