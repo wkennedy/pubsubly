@@ -268,6 +268,9 @@ There are three basic parts to the plugin:
         org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
         com.github.wkennedy.pubsubly.rmhpp.plugins.RedisMessageHeaderProcessorConfig
         
+## Internal processing overview
+
+![Image](images/pubsubly-service-processing.png?raw=true)
 
 ## Useful Endpoints
 
