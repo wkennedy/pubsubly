@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -40,15 +39,15 @@ public class PluginExecutorTest {
 
     @Test
     public void execute() {
-        ProcessorPlugin processorPlugin = new ProcessorPlugin();
+        PluginProcessor pluginProcessor = new PluginProcessor();
         Processor processor = new HeaderProcessorPlugin();
-        processorPlugin.setProcessor(processor);
+        pluginProcessor.setProcessor(processor);
         Tag tag = new Tag();
         tag.setValue("eventId");
         tag.setId("eventId");
-        processorPlugin.setTags(Collections.singletonList(tag));
+        pluginProcessor.setTags(Collections.singletonList(tag));
 
-        pluginExecutor.addProcessorPlugin(processorPlugin);
+        pluginExecutor.addPluginProcessor(pluginProcessor);
 
         Message<String> message = MessageBuilder.withPayload("test").build();
         Map<String, Object> headers = new HashMap<>();
@@ -61,6 +60,6 @@ public class PluginExecutorTest {
     }
 
     @Test
-    public void addProcessorPlugin() {
+    public void addPluginProcessor() {
     }
 }

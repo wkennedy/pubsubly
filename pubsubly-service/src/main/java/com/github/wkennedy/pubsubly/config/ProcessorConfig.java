@@ -3,7 +3,7 @@ package com.github.wkennedy.pubsubly.config;
 import com.github.wkennedy.pubsubly.api.Processor;
 import com.github.wkennedy.pubsubly.api.Tag;
 import com.github.wkennedy.pubsubly.processors.PluginExecutor;
-import com.github.wkennedy.pubsubly.processors.ProcessorPlugin;
+import com.github.wkennedy.pubsubly.processors.PluginProcessor;
 import com.github.wkennedy.pubsubly.processors.TopicProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -25,13 +25,13 @@ public class ProcessorConfig {
 
         for (PluginProcessorProperties.Processor processorConfig : processorConfigs) {
             Processor processor = processorMap.get(processorConfig.getId());
-            ProcessorPlugin processorPlugin = processorPlugin();
-            processorPlugin.setProcessor(processor);
+            PluginProcessor pluginProcessor = pluginProcessor();
+            pluginProcessor.setProcessor(processor);
             List<Tag> tags = new ArrayList<>();
             tags.addAll(processorConfig.getTags());
             tags.addAll(pluginProcessorProperties.getTags());
-            processorPlugin.setTags(tags);
-            pluginExecutor.addProcessorPlugin(processorPlugin);
+            pluginProcessor.setTags(tags);
+            pluginExecutor.addPluginProcessor(pluginProcessor);
         }
 
         return pluginExecutor;
@@ -39,7 +39,7 @@ public class ProcessorConfig {
 
     @Bean
     @Scope(scopeName = "prototype")
-    public ProcessorPlugin processorPlugin() {
-        return new ProcessorPlugin();
+    public PluginProcessor pluginProcessor() {
+        return new PluginProcessor();
     }
 }

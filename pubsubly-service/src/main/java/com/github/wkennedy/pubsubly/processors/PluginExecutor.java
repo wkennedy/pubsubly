@@ -32,7 +32,7 @@ public class PluginExecutor {
     @Autowired
     private Cache<String, MessageResource> messageCache;
 
-    private List<ProcessorPlugin> processorPlugins = new ArrayList<>();
+    private List<PluginProcessor> pluginProcessors = new ArrayList<>();
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -51,8 +51,8 @@ public class PluginExecutor {
     public void execute(Message<?> message, boolean persistToDatabase) {
         String messageUUID = UUID.randomUUID().toString();
         Map<String, String> headerKeyMap = new HashMap<>();
-        for (ProcessorPlugin processorPlugin : processorPlugins) {
-            headerKeyMap.putAll(processorPlugin.execute(message, message.getHeaders(), messageUUID));
+        for (PluginProcessor pluginProcessor : pluginProcessors) {
+            headerKeyMap.putAll(pluginProcessor.execute(message, message.getHeaders(), messageUUID));
         }
         topicProcessor.process(getTopicName(message.getHeaders()), messageUUID);
         Message mutableMessage = MutableMessageBuilder.fromMessage(message).build();
@@ -88,7 +88,7 @@ public class PluginExecutor {
         message.getHeaders().remove("kafka_consumer");
     }
 
-    public void addProcessorPlugin(ProcessorPlugin processorPlugin) {
-        processorPlugins.add(processorPlugin);
+    public void addPluginProcessor(PluginProcessor pluginProcessor) {
+        pluginProcessors.add(pluginProcessor);
     }
 }

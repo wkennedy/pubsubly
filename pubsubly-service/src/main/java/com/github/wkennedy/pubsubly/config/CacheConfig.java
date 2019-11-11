@@ -5,17 +5,12 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.wkennedy.pubsubly.api.Tag;
 import com.github.wkennedy.pubsubly.models.MessageBundle;
 import com.github.wkennedy.pubsubly.models.MessageResource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.source.InvalidConfigurationPropertyValueException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 import static com.google.common.collect.EvictingQueue.create;
 

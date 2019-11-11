@@ -37,6 +37,7 @@ spring:
 
 activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
 kafka.topic.pattern: DEMO-.*
+pubsubly.redis.enabled: true
 redis.topic.pattern: REDIS-USER-SESSION
 
 plugin-processors:

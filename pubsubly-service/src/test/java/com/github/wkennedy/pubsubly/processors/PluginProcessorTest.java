@@ -23,13 +23,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ProcessorPluginTest {
+public class PluginProcessorTest {
 
     @Mock
     private Map<String, Cache<String, MessageBundle>> cacheMap;
 
     @InjectMocks
-    private ProcessorPlugin processorPlugin = new ProcessorPlugin();
+    private PluginProcessor pluginProcessor = new PluginProcessor();
 
     private Cache<String, MessageBundle> cache = Caffeine.newBuilder().build();
 
@@ -38,11 +38,11 @@ public class ProcessorPluginTest {
     @Before
     public void setup() {
         Processor processor = new HeaderProcessorPlugin();
-        processorPlugin.setProcessor(processor);
+        pluginProcessor.setProcessor(processor);
         Tag tag = new Tag();
         tag.setValue("eventId");
         tag.setId("eventId");
-        processorPlugin.setTags(Collections.singletonList(tag));
+        pluginProcessor.setTags(Collections.singletonList(tag));
 
         MessageBundle messageBundle = new MessageBundle();
         Set<String> uuidSet = new HashSet<>();
@@ -60,7 +60,7 @@ public class ProcessorPluginTest {
         MessageHeaders messageHeaders = new MessageHeaders(headers);
         when(cacheMap.get("eventId")).thenReturn(cache);
 
-        Map<String, String> execute = processorPlugin.execute(message, messageHeaders, UUID.randomUUID().toString());
+        Map<String, String> execute = pluginProcessor.execute(message, messageHeaders, UUID.randomUUID().toString());
         assertNotNull(execute);
         assertEquals("12345", execute.get("eventId"));
     }

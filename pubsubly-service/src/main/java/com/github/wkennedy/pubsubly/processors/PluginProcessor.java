@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class ProcessorPlugin {
-    private static final Logger log = LoggerFactory.getLogger(ProcessorPlugin.class);
+public class PluginProcessor {
+    private static final Logger log = LoggerFactory.getLogger(PluginProcessor.class);
 
     private Processor processor;
     private List<Tag> tags;
@@ -26,7 +26,7 @@ public class ProcessorPlugin {
     @Autowired
     private Map<String, Cache<String, MessageBundle>> cacheMap;
 
-    public ProcessorPlugin() {
+    public PluginProcessor() {
     }
 
     public Map<String, String> execute(Message message, MessageHeaders headers, String messageUUID) {
