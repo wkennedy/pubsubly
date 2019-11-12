@@ -23,6 +23,10 @@ import java.util.UUID;
 
 import static com.github.wkennedy.pubsubly.util.HeaderUtil.getTopicName;
 
+/**
+ * The PluginExecutor is responsible for executing processors and storing messages in the message cache, with each
+ * message having a UUID which is used for lookup in the cache.
+ */
 public class PluginExecutor {
 
     private static final Logger log = LoggerFactory.getLogger(PluginExecutor.class);
@@ -49,8 +53,10 @@ public class PluginExecutor {
     }
 
     public void execute(Message<?> message, boolean persistToDatabase) {
+        //Generate the UUID for the message here. This will be used to look up and track the message
         String messageUUID = UUID.randomUUID().toString();
         Map<String, String> headerKeyMap = new HashMap<>();
+        //Loop through the available processors and get the map of tag IDs and values applicable to the message
         for (PluginProcessor pluginProcessor : pluginProcessors) {
             headerKeyMap.putAll(pluginProcessor.execute(message, message.getHeaders(), messageUUID));
         }
@@ -63,6 +69,13 @@ public class PluginExecutor {
         persistMessage(mutableMessage, messageUUID, persistToDatabase);
     }
 
+    /**
+     * If you want to store messages in a database for redundancy, you can set the property "persistMessages.enabled=true".
+     * Keep in mind, you might have lots and lots of messages consumed, so you might not want to store them all. If you do change the scheduler for truncation.
+     * @param mutableMessage the consumed message
+     * @param messageUUID the unique message ID
+     * @param persistToDatabase true if you want to persist to a db, false otherwise.
+     */
     private void persistMessage(Message mutableMessage, String messageUUID, boolean persistToDatabase) {
         if(!persistToDatabase) {
             return;
@@ -84,7 +97,11 @@ public class PluginExecutor {
         pubsublyMessageRepository.save(pubsublyMessagesEntity);
     }
 
-    private void removeUnwantedHeaders( Message message) {
+    /**
+     * @param message remove unnecessary headers from this
+     */
+    private void removeUnwantedHeaders(Message message) {
+        //We don't want to keep the kafka_consumer around as this can cause circular issues and we don't need it anyway
         message.getHeaders().remove("kafka_consumer");
     }
 

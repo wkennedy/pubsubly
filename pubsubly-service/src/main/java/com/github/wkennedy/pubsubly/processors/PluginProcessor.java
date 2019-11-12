@@ -16,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * The PluginProcessor is a wrapper around the processor. It executes the processor and if the processor returns a value
+ * then a @{@link MessageBundle} MessageBundle is either created or updated with the message UUID.
+ */
 public class PluginProcessor {
     private static final Logger log = LoggerFactory.getLogger(PluginProcessor.class);
 

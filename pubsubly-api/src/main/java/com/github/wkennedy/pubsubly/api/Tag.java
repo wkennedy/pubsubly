@@ -2,12 +2,21 @@ package com.github.wkennedy.pubsubly.api;
 
 import java.util.Objects;
 
+/**
+ * A tag is a way to define and describe the data that you are interested in tracking within the messages consumed.
+ */
 public class Tag {
+    //The id is the unique identifier of this tag and is used internally for tracking messages
     private String id;
+    //This is the value in the message that you want to tag and track, for example it might be a header key.
     private String value;
+    //This is the description of the data you are tagging. It can be used for clients such as the UI.
     private String description;
+    //Specifies if this value is used a the unique identification of the message
     private Boolean isPrimaryMessageId = false;
+    //This is the id of the event that caused this message to be raised. Allows for tracking the root cause of the event.
     private Boolean isMessageCorrelationId = false;
+    //Whether this tag should display in the UI or client
     private Boolean display = false;
 
     public String getId() {

@@ -8,6 +8,10 @@ import org.springframework.integration.handler.AbstractMessageHandler;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
+/**
+ * The PluginExecutorMessageHandler is the entry point for all messages before they move to the processors. All sources (Kafka, ActiveMQ, etc...)
+ * will feed through this handler.
+ */
 @Component
 public class PluginExecutorMessageHandler extends AbstractMessageHandler {
     private static final Logger log = LoggerFactory.getLogger(PluginExecutorMessageHandler.class);
