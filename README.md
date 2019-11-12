@@ -1,5 +1,7 @@
 # pubsubly
 
+[![Build Status](https://travis-ci.com/wkennedy/pubsubly.svg?branch=master)](https://travis-ci.com/wkennedy/pubsubly)
+
 ## What is it?
 
 Pubsubly is an application to track messages as they flow through a pub/sub backed message driven architecture.
