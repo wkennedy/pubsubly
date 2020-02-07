@@ -1,6 +1,7 @@
 package com.github.wkennedy.pubsubly.models;
 
-import org.springframework.hateoas.ResourceSupport;
+import com.github.wkennedy.pubsubly.api.Priority;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.messaging.Message;
 
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
  * A MessageResource is a wrapper around a Spring message with HATEOS support as well as a Map that contains
  * the Tag ID as a key and the value of that tag that was discovered during processing.
  */
-public class MessageResource extends ResourceSupport {
+public class MessageResource extends RepresentationModel {
 
     private Message message;
     private Map<String, String> messageKeyMap;
