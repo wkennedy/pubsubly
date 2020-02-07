@@ -2,7 +2,7 @@ package com.github.wkennedy.pubsubly.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.util.StringUtils;
 @ConditionalOnProperty("pubsubly.redis.enabled")
 public class RedisConfiguration {
 
-    @Value("${redis.topic.pattern:@null}")
+    @Value("${redis.topic.pattern:}")
     private String redisTopicPattern;
 
     @Value("${redis.topic.names:@null}")
@@ -38,7 +38,6 @@ public class RedisConfiguration {
         } else {
             redisInboundChannelAdapter.setTopicPatterns(redisTopicPattern);
         }
-        redisInboundChannelAdapter.setTopics();
         redisInboundChannelAdapter.setOutputChannel(inboundMessageChannel);
 
         return redisInboundChannelAdapter;

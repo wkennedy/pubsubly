@@ -18,7 +18,7 @@ public class IntegrationConfig {
     }
 
     @Bean
-    public IntegrationFlow vehicleConnectionEstablishedFlow(@Autowired PluginExecutorMessageHandler pluginExecutorHandler, MessageChannel inboundMessageChannel) {
+    public IntegrationFlow inboundMessageIntegrationFlow(@Autowired PluginExecutorMessageHandler pluginExecutorHandler, MessageChannel inboundMessageChannel) {
         return IntegrationFlows.from(inboundMessageChannel)
                 .handle(pluginExecutorHandler)
                 .get();

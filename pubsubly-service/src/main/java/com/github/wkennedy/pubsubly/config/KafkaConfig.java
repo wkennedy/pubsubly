@@ -118,4 +118,9 @@ public class KafkaConfig {
         stringStringConcurrentMessageListenerContainer.setConcurrency(1);
         return stringStringConcurrentMessageListenerContainer;
     }
+
+    @Bean
+    public Map<String, KafkaMessageDrivenChannelAdapter> dynamicKafkaAdapters() {
+        return new HashMap<>();
+    }
 }
