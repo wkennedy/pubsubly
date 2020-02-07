@@ -39,7 +39,9 @@
     "recharts": "^1.7.0",
     "rxjs": "^6.5.2",
     "styled-jsx": "^3.2.1",
-    "express-status-monitor": "latest"
+    "express-status-monitor": "latest",
+    "express-basic-auth": "latest",
+    "serialize-javascript": "^2.1.1"
   },
   "devDependencies": {
     "date-fns": "^2.1.0",

@@ -112,7 +112,7 @@ class Header extends Component {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h5" color="inherit" className={classes.flex}>
-                            Message Tracker
+                            Pubsubly - Message Tracker
                         </Typography>
                     </Toolbar>
                 </AppBar>
