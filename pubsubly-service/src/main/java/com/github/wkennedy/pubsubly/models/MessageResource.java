@@ -13,10 +13,17 @@ public class MessageResource extends ResourceSupport {
 
     private Message message;
     private Map<String, String> messageKeyMap;
+    private Priority priority = Priority.NORMAL;
 
     public MessageResource(Message message, Map<String, String> messageKeyMap) {
         this.message = message;
         this.messageKeyMap = messageKeyMap;
+    }
+
+    public MessageResource(Message message, Map<String, String> messageKeyMap, Priority priority) {
+        this.message = message;
+        this.messageKeyMap = messageKeyMap;
+        this.priority = priority;
     }
 
     public Message getMessage() {
@@ -35,11 +42,20 @@ public class MessageResource extends ResourceSupport {
         return messageKeyMap.get(key);
     }
 
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
     @Override
     public String toString() {
         return "MessageResource{" +
                 "message=" + message +
                 ", messageKeyMap=" + messageKeyMap +
+                ", priority=" + priority +
                 '}';
     }
 }

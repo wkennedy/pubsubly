@@ -25,6 +25,7 @@ public class RedisConfiguration {
     private String[] redisTopicNames;
 
     @Bean
+    @ConditionalOnBean(RedisConnectionFactory.class)
     StringRedisTemplate stringRedisTemplate(RedisConnectionFactory connectionFactory) {
         return new StringRedisTemplate(connectionFactory);
     }

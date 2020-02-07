@@ -54,3 +54,7 @@ plugin-processors:
 persistMessages.enabled: false
 server:
   port: 9000
+
+springdoc:
+  swagger-ui:
+    path: /swagger/swagger-ui.html

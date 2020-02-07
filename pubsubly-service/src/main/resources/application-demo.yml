@@ -54,6 +54,9 @@ plugin-processors:
     - id: eventName
       value: eventName
       description: This is the event name
+      patternValueMonitors:
+        - regexPattern: '.*ERROR.*'
+          priority: HIGH
     - id: sku
       value: sku
       description: ID of the product
@@ -65,3 +68,7 @@ persistMessages.enabled: false
 
 server:
   port: 9000
+
+springdoc:
+  swagger-ui:
+    path: /swagger/swagger-ui.html

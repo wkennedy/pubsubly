@@ -56,5 +56,12 @@ plugin-processors:
     - id: eventName
       value: eventName
       description: This is the event name
+      patternValueMonitors:
+        - regexPattern: '.*ERROR.*'
+          priority: HIGH
   processors:
     - id: headerProcessorPlugin
+
+springdoc:
+  swagger-ui:
+    path: /swagger/swagger-ui.html

@@ -14,6 +14,7 @@ public class DemoConfig {
     private static final String KAFKA_ORDER_TOPIC = "DEMO-KAFKA_ORDER_TOPIC";
     private static final String KAFKA_USER_TOPIC = "DEMO-KAFKA_USER_TOPIC";
     private static final String REDIS_TOPIC = "REDIS-USER-SESSION";
+    private static final String EXTERNAL_TOPIC = "EXTERNAL_TOPIC";
 
     @Bean
     public NewTopic topic1() {
@@ -28,6 +29,11 @@ public class DemoConfig {
     @Bean
     public NewTopic topic3() {
         return new NewTopic(KAFKA_USER_TOPIC, 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic topic4() {
+        return new NewTopic(EXTERNAL_TOPIC, 1, (short) 1);
     }
 
     @Bean

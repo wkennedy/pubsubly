@@ -6,18 +6,8 @@ import java.util.List;
 
 public class MessageDetails extends ResourceSupport {
     private MessageResourceBundle messageResourceBundle;
-//    private List<MessageResource> messages;
     private Long averageTimeBetweenTopics;
     private MessageFlow messageFlow;
-
-//    public List<MessageResource> getMessages() {
-//        return messages;
-//    }
-//
-//    public void setMessages(List<MessageResource> messages) {
-//        this.messages = messages;
-//    }
-
 
     public MessageResourceBundle getMessageResourceBundle() {
         return messageResourceBundle;
