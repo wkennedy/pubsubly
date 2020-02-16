@@ -18,7 +18,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import SearchIcon from "@material-ui/icons/Search";
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import {host} from "../config";
-import CloudIcon from '@material-ui/icons/Cloud';
+import HearingIcon from '@material-ui/icons/Hearing';
 
 const styles = theme => ({
     root: {
@@ -78,6 +78,10 @@ class Header extends Component {
                     <ListItem button key='topics'>
                         <ListItemIcon>{<ExploreIcon/>}</ListItemIcon>
                         <Link href={'/topics'}><a><ListItemText primary='Topics'/></a></Link>
+                    </ListItem>
+                    <ListItem button key='listeners'>
+                        <ListItemIcon>{<HearingIcon/>}</ListItemIcon>
+                        <Link href={'/listeners'}><a><ListItemText primary='Listeners'/></a></Link>
                     </ListItem>
                     <ListItem button key='search'>
                         <ListItemIcon>{<SearchIcon/>}</ListItemIcon>
