@@ -1,5 +1,6 @@
 package com.github.wkennedy.pubsubly.services;
 
+import com.github.wkennedy.pubsubly.config.KafkaProperties;
 import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.listener.AbstractMessageListenerContainer;
@@ -9,7 +10,9 @@ import org.springframework.kafka.listener.KafkaMessageListenerContainer;
 import org.springframework.kafka.support.converter.MessagingMessageConverter;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -26,11 +29,18 @@ public class DynamicKafkaService {
 
     private final Map<String, KafkaMessageDrivenChannelAdapter<String, String>> dynamicKafkaAdapters;
 
-    public DynamicKafkaService(ConcurrentMessageListenerContainer<String, String> kafkaListener, ConsumerFactory<String, String> consumerFactory, MessageChannel inboundMessageChannel, Map<String, KafkaMessageDrivenChannelAdapter<String, String>> dynamicKafkaAdapters) {
+    private final KafkaProperties kafkaProperties;
+
+    public DynamicKafkaService(ConcurrentMessageListenerContainer<String, String> kafkaListener,
+                               ConsumerFactory<String, String> consumerFactory, MessageChannel inboundMessageChannel,
+                               Map<String, KafkaMessageDrivenChannelAdapter<String, String>> dynamicKafkaAdapters,
+                               KafkaProperties kafkaProperties) {
         this.kafkaListener = kafkaListener;
         this.consumerFactory = consumerFactory;
         this.inboundMessageChannel = inboundMessageChannel;
         this.dynamicKafkaAdapters = dynamicKafkaAdapters;
+        this.dynamicKafkaAdapters.clear();
+        this.kafkaProperties = kafkaProperties;
     }
 
     public void stopDefaultListener() {
@@ -92,5 +102,14 @@ public class DynamicKafkaService {
 
     public Set<String> getDynamicTopics() {
         return dynamicKafkaAdapters.keySet();
+    }
+
+    public Map<String, String> getKafkaInfo() {
+        Map<String, String> kafkaInfo = new HashMap<>();
+        kafkaInfo.put("bootstrapServers", StringUtils.collectionToCommaDelimitedString(kafkaProperties.getBootstrapServers()));
+        kafkaInfo.put("groupId", kafkaProperties.getConsumer().getGroupId());
+        kafkaInfo.put("topicPattern", kafkaProperties.getTopicPattern());
+        kafkaInfo.put("topicNames", StringUtils.arrayToCommaDelimitedString(kafkaProperties.getTopicNames()));
+        return kafkaInfo;
     }
 }

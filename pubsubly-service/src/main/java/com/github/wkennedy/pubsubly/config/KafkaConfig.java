@@ -5,7 +5,6 @@ import org.apache.kafka.common.errors.SerializationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -37,12 +36,6 @@ public class KafkaConfig {
     private static final Logger log = LoggerFactory.getLogger(KafkaConfig.class);
 
     private final KafkaProperties kafkaProperties;
-
-    @Value("${kafka.topic.pattern:@null}")
-    private String topicPattern;
-
-    @Value("${kafka.topic.names:@null}")
-    private String[] topicNames;
 
     public KafkaConfig(KafkaProperties kafkaProperties) {
         this.kafkaProperties = kafkaProperties;
@@ -109,10 +102,10 @@ public class KafkaConfig {
     @Bean
     public ConcurrentMessageListenerContainer<String, String> kafkaListener() {
         ContainerProperties containerProperties;
-        if(StringUtils.isEmpty(topicPattern)) {
-            containerProperties = new ContainerProperties(topicNames);
+        if(StringUtils.isEmpty(kafkaProperties.getTopicPattern())) {
+            containerProperties = new ContainerProperties(kafkaProperties.getTopicNames());
         } else {
-            containerProperties = new ContainerProperties(Pattern.compile(topicPattern));
+            containerProperties = new ContainerProperties(Pattern.compile(kafkaProperties.getTopicPattern()));
         }
         ConcurrentMessageListenerContainer<String, String> stringStringConcurrentMessageListenerContainer = new ConcurrentMessageListenerContainer<>(consumerFactory(), containerProperties);
         stringStringConcurrentMessageListenerContainer.setConcurrency(1);
@@ -120,7 +113,7 @@ public class KafkaConfig {
     }
 
     @Bean
-    public Map<String, KafkaMessageDrivenChannelAdapter> dynamicKafkaAdapters() {
+    public Map<String, KafkaMessageDrivenChannelAdapter<String, String>> dynamicKafkaAdapters() {
         return new HashMap<>();
     }
 }

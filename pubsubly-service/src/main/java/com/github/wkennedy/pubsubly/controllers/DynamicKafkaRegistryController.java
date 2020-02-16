@@ -4,6 +4,7 @@ import com.github.wkennedy.pubsubly.services.DynamicKafkaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -17,23 +18,27 @@ public class DynamicKafkaRegistryController {
     }
 
     @PostMapping(path = "/add/topics")
-    public void addTopics(@RequestParam List<String> topics) {
+    public Boolean addTopics(@RequestParam List<String> topics) {
         dynamicKafkaService.startTopics(topics);
+        return true;
     }
 
     @PostMapping(path = "/add/topic-pattern")
-    public void addTopics(@RequestParam String topicPattern) {
+    public Boolean addTopics(@RequestParam String topicPattern) {
         dynamicKafkaService.startPattern(topicPattern);
+        return true;
     }
 
     @PostMapping(path = "/remove/topics")
-    public void removeTopics(@RequestParam List<String> topics) {
+    public Boolean removeTopics(@RequestParam List<String> topics) {
         dynamicKafkaService.stopTopics(topics);
+        return true;
     }
 
     @PostMapping(path = "/remove/topic-pattern")
-    public void removeTopics(@RequestParam String topicPattern) {
+    public Boolean removeTopics(@RequestParam String topicPattern) {
         dynamicKafkaService.stopPattern(topicPattern);
+        return true;
     }
 
     @PostMapping(path = "/start/default")
@@ -41,7 +46,7 @@ public class DynamicKafkaRegistryController {
         dynamicKafkaService.startDefaultListener();
     }
 
-    @PostMapping(path = "/stopic/default")
+    @PostMapping(path = "/topics/default")
     public void stopDefaultTopics() {
         dynamicKafkaService.stopDefaultListener();
     }
@@ -54,5 +59,10 @@ public class DynamicKafkaRegistryController {
     @GetMapping(path = "/added-topic-patterns")
     public Set<String> getDynamicTopicPatterns() {
         return dynamicKafkaService.getDynamicTopics();
+    }
+
+    @GetMapping(path = "kafka-info")
+    public Map<String, String> getKafkaInfo() {
+        return dynamicKafkaService.getKafkaInfo();
     }
 }
