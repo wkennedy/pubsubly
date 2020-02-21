@@ -1,13 +1,9 @@
 import React, {Component} from "react";
-import {Box, Container, Paper} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import {Container} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import JSONInput from "react-json-editor-ajrm";
-import locale from 'react-json-editor-ajrm/locale/en';
-import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
@@ -32,11 +28,6 @@ class Listeners extends Component {
 
     constructor(props) {
         super(props);
-
-        // this.state = {
-        //     message: {example:"value"}
-        // };
-        // console.log("in constructor: " + this.state);
 
         this.state = {
             topicNames: this.props.addedTopics,
@@ -154,11 +145,6 @@ class Listeners extends Component {
                             </Typography>
                         </CardContent>
                     </Card>
-                    {/*<div>Kafka Brokers: {this.props.kafkaInfo.bootstrapServers}</div>*/}
-                    {/*<div>Group-Id: {this.props.kafkaInfo.groupId}</div>*/}
-                    {/*<div>Default topic-pattern: {this.props.kafkaInfo.topicPattern}</div>*/}
-                    {/*<div>Default topic names: {this.props.kafkaInfo.topicNames}</div>*/}
-                    {/*<div>Additional topic names: {this.state.topicNames.join(", ")}</div>*/}
                 </Container>
 
                 <Container maxWidth="false">
@@ -175,22 +161,15 @@ class Listeners extends Component {
                         color="primary"
                         aria-label="vertical outlined primary button group"
                     >
-                    {/*<FormControl>*/}
                         <Button id="addTopicButton"
                                 onClick={this.handleSubmit}>
                             Add
                         </Button>
-                    {/*</FormControl>*/}
-                    {/*<FormControl>*/}
                         <Button id="removeTopicButton"
                                 onClick={this.handleSubmit}>
                             Remove
                         </Button>
-                    {/*</FormControl>*/}
                     </ButtonGroup>
-                {/*</Container>*/}
-
-                {/*<Container maxWidth={"xl"}>*/}
                     <form noValidate autoComplete="off">
                         <TextField
                             id='topicPatternField'
@@ -205,18 +184,14 @@ class Listeners extends Component {
                         color="primary"
                         aria-label="vertical outlined primary button group"
                     >
-                    {/*<FormControl>*/}
                         <Button id="addPatternButton"
                                 onClick={this.handleSubmit}>
                             Add
                         </Button>
-                    {/*</FormControl>*/}
-                    {/*<FormControl>*/}
                         <Button id="removePatternButton"
                                 onClick={this.handleSubmit}>
                             Remove
                         </Button>
-                    {/*</FormControl>*/}
                     </ButtonGroup>
 
                 </Container>

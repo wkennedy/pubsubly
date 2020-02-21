@@ -35,6 +35,8 @@ Once you clone the repo, if you don't already have access to Kafka brokers you c
 
     docker-compose up
     
+    docker-compose -f docker-compose-kafka.yml -f docker-compose.yml up
+    
 If you aren't running Kafka locally, then you'll have update the application.yml with the broker URLs. In the application.yml in the pubsubly-service resources, update:
 
     spring:

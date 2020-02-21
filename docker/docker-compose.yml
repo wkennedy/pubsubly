@@ -1,112 +1,31 @@
-version: '2.1'
+version: '3.5'
 
 services:
-  zoo1:
-    image: zookeeper:3.4.9
-    hostname: zoo1
-    networks:
-      - pubsubly-network
-    ports:
-      - "2181:2181"
-    environment:
-      ZOO_MY_ID: 1
-      ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=zoo1:2888:3888
-#    volumes:
-#      - ./zk-single-kafka-single/zoo1/data:/data
-#      - ./zk-single-kafka-single/zoo1/datalog:/datalog
 
-  kafka1:
-    image: confluentinc/cp-kafka:5.3.1
-    hostname: kafka1
+  pubsubly-service:
+    image: "waggins/pubsubly-service:v4"
     networks:
-      - pubsubly-network
+      - service-pubsubly-network
     ports:
-      - "9092:9092"
+      - "9000:9000"
+    volumes:
+      - ./config:/config
     environment:
-      KAFKA_ADVERTISED_LISTENERS: LISTENER_DOCKER_INTERNAL://kafka1:19092,LISTENER_DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER_DOCKER_INTERNAL:PLAINTEXT,LISTENER_DOCKER_EXTERNAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
-      KAFKA_ZOOKEEPER_CONNECT: "zoo1:2181"
-      KAFKA_BROKER_ID: 1
-      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#    volumes:
-#      - ./zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
+      - SPRING_CONFIG_LOCATION=file:/config/application-local.yml
+      - SPRING_PROFILES_ACTIVE=example
+
+  pubsubly-ui:
+    image: "waggins/pubsubly-ui:v2"
+    networks:
+      - service-pubsubly-network
+    ports:
+      - "3001:3001"
+    links:
+      - pubsubly-service
     depends_on:
-      - zoo1
-
-#  redis:
-#    image: "redis:alpine"
-#    container_name: "redis"
-#    networks:
-#      - pubsubly-network
-#    expose:
-#      - 6379
-#    ports:
-#      - "6379:6379"
-#
-#  activemq:
-#    image: webcenter/activemq:5.14.3
-#    hostname: activemq
-#    ports:
-#      # mqtt
-#      - "1883:1883"
-#      # amqp
-#      - "5672:5672"
-#      # ui
-#      - "8161:8161"
-#      # stomp
-#      - "61613:61613"
-#      # ws
-#      - "61614:61614"
-#      # jms
-#      - "61616:61616"
-##    volumes: ["activemq-data:/opt/activemq/conf", "activemq-data:/data/activemq", "activemq-data:/var/log/activemq"]
-#    environment:
-#      ACTIVEMQ_REMOVE_DEFAULT_ACCOUNT: "true"
-#      ACTIVEMQ_ADMIN_LOGIN: admin
-#      ACTIVEMQ_ADMIN_PASSWORD: password
-#      ACTIVEMQ_WRITE_LOGIN: write
-#      ACTIVEMQ_WRITE_PASSWORD: password
-#      ACTIVEMQ_READ_LOGIN: read
-#      ACTIVEMQ_READ_PASSWORD: password
-#      ACTIVEMQ_JMX_LOGIN: jmx
-#      ACTIVEMQ_JMX_PASSWORD: password
-#      ACTIVEMQ_STATIC_TOPICS: ACTIVEMQ-TOPIC-1;ACTIVEMQ-TOPIC-2
-#      ACTIVEMQ_STATIC_QUEUES: static-queue-1;static-queue-2
-#      ACTIVEMQ_ENABLED_SCHEDULER: "true"
-#      ACTIVEMQ_MIN_MEMORY: 512
-#      ACTIVEMQ_MAX_MEMORY: 2048
-
-#  rabbitmq:
-#    image: rabbitmq:management
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-
-#  pubsubly-service:
-#    image: "waggins/pubsubly-service"
-#    networks:
-#      - pubsubly-network
-#    ports:
-#      - "8080:8080"
-#    links:
-#      - kafka1
-#    depends_on:
-#      - kafka1
-#
-#  pubsubly-ui:
-#    image: "waggins/pubsubly-ui"
-#    networks:
-#      - pubsubly-network
-#    ports:
-#      - "3000:3000"
-#    links:
-#      - pubsubly-service
-#    depends_on:
-#      - pubsubly-service
+      - pubsubly-service
 
 networks:
-  pubsubly-network:
-    driver: bridge
+  service-pubsubly-network:
+    external:
+      name: pubsubly-network
