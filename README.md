@@ -1,5 +1,7 @@
 # pubsubly
 
+![Java CI](https://github.com/wkennedy/pubsubly/workflows/Java%20CI/badge.svg?branch=master)
+
 [![Build Status](https://travis-ci.com/wkennedy/pubsubly.svg?branch=master)](https://travis-ci.com/wkennedy/pubsubly)
 
 ## What is it?
