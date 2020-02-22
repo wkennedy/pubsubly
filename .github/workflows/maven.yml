@@ -15,6 +15,8 @@ jobs:
         java-version: 1.8
     - name: Build Pubsubly API with Maven
       run: mvn -B install --file ./pubsubly-api/pom.xml
+    - name: Deploy Pubsubly API with Maven
+      run: mvn deploy --file ./pubsubly-api/pom.xml  
     - name: Build Pubsubly Redis Message Header Plugin with Maven
       run: mvn -B install --file ./redis-message-header-plugin/pom.xml
     - name: Build Pubsubly Service with Maven
