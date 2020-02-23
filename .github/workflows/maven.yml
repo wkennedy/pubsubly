@@ -18,7 +18,7 @@ jobs:
       - name: Deploy Pubsubly API with Maven
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
+        run: |
           mkdir ~/.m2
           echo "<settings><servers><server><id>github</id><username>wkennedy</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
           mvn deploy --file ./pubsubly-api/pom.xml
