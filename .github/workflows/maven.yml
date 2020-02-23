@@ -19,10 +19,7 @@ jobs:
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mkdir ~/.m2
-          cat ~/.m2/settings.xml
-          echo "<settings><servers><server><id>github</id><username>wkennedy</username><password>${GITHUB_TOKEN}</password></server></servers></settings>" > ~/.m2/settings.xml
+        run:
           mvn --settings settings.xml deploy --file ./pubsubly-api/pom.xml
       - name: Build Pubsubly Redis Message Header Plugin with Maven
         run: mvn -B install --file ./redis-message-header-plugin/pom.xml
