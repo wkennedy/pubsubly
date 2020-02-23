@@ -15,14 +15,6 @@
         <spring-plugin-metadata.version>2.0.0.RELEASE</spring-plugin-metadata.version>
     </properties>
 
-            <repositories>
-                <repository>
-                    <id>github</id>
-                    <name>GitHub wkennedy Apache Maven Packages</name>
-                    <url>https://maven.pkg.github.com/wkennedy/pubsubly</url>
-                </repository>
-            </repositories>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
