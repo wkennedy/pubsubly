@@ -25,7 +25,7 @@ jobs:
           NRM_USER: ${{ secrets.NRM_USER }}
           NRM_PASS: ${{ secrets.NRM_PASS }}
         run:
-          mvn --file ./pubsubly-api/pom.xml
+          mvn deploy --file ./pubsubly-api/pom.xml
 #      - name: Build Pubsubly Redis Message Header Plugin with Maven
 #        run: mvn -B install --file ./redis-message-header-plugin/pom.xml
 #      - name: Build Pubsubly Service with Maven
