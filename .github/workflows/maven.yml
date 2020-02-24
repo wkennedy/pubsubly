@@ -14,16 +14,16 @@ jobs:
         with:
           java-version: 1.8
           server-id: ossrh
-          server-username: ${{ secrets.NRM_USER }}
-          server-password: ${{ secrets.NRM_PASS }}
+          server-username: NRM_USER
+          server-password: NRM_PASS
       - name: Build Pubsubly API with Maven
         run: mvn -B install --file ./pubsubly-api/pom.xml
       - name: Deploy Pubsubly API with Maven
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NRM_USER: ${{ secrets.NRM_USER }}
-          NRM_PASS: ${{ secrets.NRM_PASS }}
+          NRM_USER: ${{ secrets.OSSRH_USERNAME }}
+          NRM_PASS: ${{ secrets.OSSRH_TOKEN }}
         run:
           mvn deploy --file ./pubsubly-api/pom.xml
 #      - name: Build Pubsubly Redis Message Header Plugin with Maven
