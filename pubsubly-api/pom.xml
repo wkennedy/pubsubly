@@ -15,6 +15,19 @@
         <spring-plugin-metadata.version>2.0.0.RELEASE</spring-plugin-metadata.version>
     </properties>
 
+    <scm>
+        <url>https://github.com/wkennedy/pubsubly</url>
+        <connection>scm:git:git@github.com:wkennedy/pubsubly.git</connection>
+        <developerConnection>scm:git:git@github.com:wkennedy/pubsubly.git</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>kennedyw</id>
+            <name>Will Kennedy</name>
+            <email>wildo.waggins@gmail.com</email>
+        </developer>
+    </developers>
+
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
