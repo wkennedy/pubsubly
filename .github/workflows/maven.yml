@@ -19,9 +19,11 @@ jobs:
         env:
           GITHUB_USERNAME: x-access-token
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NRM_USER: ${{secrets.NRM_USER}}
+          NRM_PASS: ${{secrets.NRM_PASS}}
         run:
           mvn --settings settings.xml deploy --file ./pubsubly-api/pom.xml
-      - name: Build Pubsubly Redis Message Header Plugin with Maven
-        run: mvn -B install --file ./redis-message-header-plugin/pom.xml
-      - name: Build Pubsubly Service with Maven
-        run: mvn -B package --file ./pubsubly-service/pom.xml
+#      - name: Build Pubsubly Redis Message Header Plugin with Maven
+#        run: mvn -B install --file ./redis-message-header-plugin/pom.xml
+#      - name: Build Pubsubly Service with Maven
+#        run: mvn -B package --file ./pubsubly-service/pom.xml
