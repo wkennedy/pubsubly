@@ -4,7 +4,7 @@
 
     <profiles>
         <profile>
-            <id>ossrh</id>
+            <id>allow-snapshots</id>
             <activation><activeByDefault>true</activeByDefault></activation>
             <repositories>
                 <repository>
