@@ -104,12 +104,4 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <id>github</id>
-            <name>GitHub wkennedy Apache Maven Packages</name>
-            <url>https://github.com/wkennedy/pubsubly/raw/repository</url>
-        </repository>
-    </repositories>
-
 </project>
