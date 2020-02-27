@@ -106,7 +106,7 @@
 
     <repositories>
         <repository>
-            <id>snapshots</id>
+            <id>ossrh</id>
             <url>http://oss.sonatype.org/content/repositories/snapshots</url>
             <releases>
                 <enabled>false</enabled>
