@@ -13,18 +13,18 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
+#          server-id: ossrh
+#          server-username: MAVEN_USERNAME
+#          server-password: MAVEN_PASSWORD
       - name: Build Pubsubly API with Maven
-        run: mvn -B install --file ./pubsubly-api/pom.xml
+        run: mvn --settings settings.xml -B install --file ./pubsubly-api/pom.xml
       - name: Deploy Pubsubly API with Maven
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         run:
-          mvn deploy --file ./pubsubly-api/pom.xml
+          mvn --settings settings.xml deploy --file ./pubsubly-api/pom.xml
       - name: Build Pubsubly Redis Message Header Plugin with Maven
-        run: mvn -B install --file ./redis-message-header-plugin/pom.xml
+        run: mvn --settings settings.xml -B install --file ./redis-message-header-plugin/pom.xml
 #      - name: Build Pubsubly Service with Maven
 #        run: mvn -B package --file ./pubsubly-service/pom.xml
