@@ -25,6 +25,6 @@ jobs:
         run:
           mvn --settings settings.xml deploy --file ./pubsubly-api/pom.xml
       - name: Build Pubsubly Redis Message Header Plugin with Maven
-        run: mvn --settings settings.xml -B install --file ./redis-message-header-plugin/pom.xml
+        run: mvn --settings settings.xml -U -B install --file ./redis-message-header-plugin/pom.xml
 #      - name: Build Pubsubly Service with Maven
 #        run: mvn -B package --file ./pubsubly-service/pom.xml
