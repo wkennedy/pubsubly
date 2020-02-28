@@ -27,10 +27,16 @@ jobs:
       - name: Build Pubsubly Redis Message Header Plugin with Maven
         run: mvn --settings settings.xml -U -B install --file ./redis-message-header-plugin/pom.xml
       - name: Deploy Pubsubly Redis Message Header Plugin with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         run:
           mvn --settings settings.xml deploy --file ./redis-message-header-plugin/pom.xml
       - name: Build Pubsubly Service with Maven
         run: mvn -B package --file ./pubsubly-service/pom.xml
       - name: Deploy Pubsubly Service with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
         run:
           mvn --settings settings.xml deploy --file ./pubsubly-service/pom.xml
