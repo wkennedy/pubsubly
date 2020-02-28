@@ -16,6 +16,31 @@
         <relativePath/>
     </parent>
 
+    <scm>
+        <url>https://github.com/wkennedy/pubsubly</url>
+        <connection>scm:git:git@github.com:wkennedy/pubsubly.git</connection>
+        <developerConnection>scm:git:git@github.com:wkennedy/pubsubly.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>kennedyw</id>
+            <name>Will Kennedy</name>
+            <email>wildo.waggins@gmail.com</email>
+        </developer>
+    </developers>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -26,7 +51,7 @@
         <dependency>
             <groupId>com.github.wkennedy.pubsubly</groupId>
             <artifactId>pubsubly-api</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.wkennedy.pubsubly</groupId>
@@ -177,5 +202,12 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub wkennedy Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/wkennedy/pubsubly</url>
+        </repository>
+    </repositories>
 
 </project>
