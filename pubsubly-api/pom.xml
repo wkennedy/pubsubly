@@ -5,7 +5,7 @@
 
     <groupId>com.github.wkennedy.pubsubly</groupId>
     <artifactId>pubsubly-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>pubsubly-api</name>
@@ -26,7 +26,7 @@
         <url>https://github.com/wkennedy/pubsubly</url>
         <connection>scm:git:git@github.com:wkennedy/pubsubly.git</connection>
         <developerConnection>scm:git:git@github.com:wkennedy/pubsubly.git</developerConnection>
-      <tag>pubsubly-api-1.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
