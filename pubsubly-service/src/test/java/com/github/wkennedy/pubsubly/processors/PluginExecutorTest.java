@@ -6,6 +6,7 @@ import com.github.wkennedy.pubsubly.api.Processor;
 import com.github.wkennedy.pubsubly.api.Tag;
 import com.github.wkennedy.pubsubly.models.MessageResource;
 import com.github.wkennedy.pubsubly.plugins.HeaderProcessorPlugin;
+import com.github.wkennedy.pubsubly.plugins.HeaderValuePriorityProcessorPlugin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,6 +37,12 @@ public class PluginExecutorTest {
 
     @Mock
     private Queue<MessageResource> latestMessageCache;
+
+    @Mock
+    private HeaderValuePriorityProcessorPlugin headerValuePriorityProcessorPlugin;
+
+    @Mock
+    private Queue<MessageResource> highPriorityMessageCache;
 
     @Test
     public void execute() {

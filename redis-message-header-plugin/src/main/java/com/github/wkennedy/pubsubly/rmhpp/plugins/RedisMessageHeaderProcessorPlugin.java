@@ -13,7 +13,6 @@ import org.springframework.messaging.MessageHeaders;
 import java.util.Map;
 
 public class RedisMessageHeaderProcessorPlugin implements Processor {
-    private static final Logger log = LoggerFactory.getLogger(RedisMessageHeaderProcessorPlugin.class);
     private static final String redis_messageSource = "redis_messageSource";
 
     private Gson gson = new Gson();

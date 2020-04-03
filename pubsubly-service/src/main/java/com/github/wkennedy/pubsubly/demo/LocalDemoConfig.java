@@ -4,16 +4,13 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.redis.listener.ChannelTopic;
 
-@Profile("demo")
+@Profile("local-demo")
 @Configuration
-public class DemoConfig {
-
+public class LocalDemoConfig {
     private static final String KAFKA_BID_TOPIC = "DEMO-KAFKA_BID_TOPIC";
     private static final String KAFKA_ORDER_TOPIC = "DEMO-KAFKA_ORDER_TOPIC";
     private static final String KAFKA_USER_TOPIC = "DEMO-KAFKA_USER_TOPIC";
-    private static final String REDIS_TOPIC = "REDIS-USER-SESSION";
     private static final String EXTERNAL_TOPIC = "EXTERNAL_TOPIC";
 
     @Bean
@@ -35,10 +32,4 @@ public class DemoConfig {
     public NewTopic topic4() {
         return new NewTopic(EXTERNAL_TOPIC, 1, (short) 1);
     }
-
-    @Bean
-    public ChannelTopic channelTopic() {
-        return new ChannelTopic(REDIS_TOPIC);
-    }
-
 }

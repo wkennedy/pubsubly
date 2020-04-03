@@ -1,23 +1,11 @@
 package com.github.wkennedy.pubsubly.models;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
-import java.util.List;
-
-public class MessageDetails extends ResourceSupport {
+public class MessageDetails extends RepresentationModel {
     private MessageResourceBundle messageResourceBundle;
-//    private List<MessageResource> messages;
     private Long averageTimeBetweenTopics;
     private MessageFlow messageFlow;
-
-//    public List<MessageResource> getMessages() {
-//        return messages;
-//    }
-//
-//    public void setMessages(List<MessageResource> messages) {
-//        this.messages = messages;
-//    }
-
 
     public MessageResourceBundle getMessageResourceBundle() {
         return messageResourceBundle;

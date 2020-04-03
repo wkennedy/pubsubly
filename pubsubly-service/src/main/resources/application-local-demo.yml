@@ -1,25 +1,28 @@
+server:
+  port: 9000
 
 spring:
-  health:
-    jms:
-      enabled: false
   kafka:
-    bootstrap-servers: kafka1:19092
+    bootstrap-servers: localhost:9092
     consumer:
-      group-id: pubsubly-demo
+      group-id: pubsubly-local
       auto-offset-reset: earliest
-#      enable-auto-commit: false
-#    listener:
-#      ack-mode: record
+      enable-auto-commit: false
+    listener:
+      ack-mode: record
+    topic-pattern: DEMO-.*
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+  data:
+    redis:
+      repositories:
+        enabled: false
+#  activemq:
+#    broker-url: failover://tcp://localhost:61616
+#  jms:
+#    pub-sub-domain: true
 
-  activemq:
-    broker-url: failover://tcp://activemq:61616
-  jms:
-    pub-sub-domain: true
-  redis:
-    host: redis
-    port: 6379
-
+persistMessages.enabled: false
 #  datasource:
 #    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1
 #    username: sa
@@ -35,10 +38,9 @@ spring:
 #      dialect: org.hibernate.dialect.H2Dialect
 
 
-activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
-kafka.topic.pattern: DEMO-.*
-pubsubly.redis.enabled: true
-redis.topic.pattern: REDIS-USER-SESSION
+#activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
+#pubsubly.redis.enabled: true
+#redis.topic.pattern: REDIS-USER-SESSION
 
 plugin-processors:
   tags:
@@ -54,14 +56,12 @@ plugin-processors:
     - id: eventName
       value: eventName
       description: This is the event name
-    - id: sku
-      value: sku
-      description: ID of the product
+      patternValueMonitors:
+        - regexPattern: '.*ERROR.*'
+          priority: HIGH
   processors:
     - id: headerProcessorPlugin
-    - id: redisMessageHeaderProcessorPlugin
 
-persistMessages.enabled: false
-
-server:
-  port: 9000
+springdoc:
+  swagger-ui:
+    path: /swagger/swagger-ui.html

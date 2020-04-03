@@ -3,16 +3,11 @@ package com.github.wkennedy.pubsubly.demo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.wkennedy.pubsubly.config.KafkaProperties;
-import org.apache.kafka.clients.admin.NewTopic;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -62,6 +57,7 @@ public class DemoService {
     private static final String KAFKA_BID_TOPIC = "DEMO-KAFKA_BID_TOPIC";
     private static final String KAFKA_ORDER_TOPIC = "DEMO-KAFKA_ORDER_TOPIC";
     private static final String KAFKA_USER_TOPIC = "DEMO-KAFKA_USER_TOPIC";
+    private static final String EXTERNAL_TOPIC = "EXTERNAL_TOPIC";
     private static final String REDIS_TOPIC = "REDIS-USER-SESSION";
 
     private final StringRedisTemplate stringRedisTemplate;
@@ -334,6 +330,17 @@ public class DemoService {
         KafkaTemplate<String, String> kafkaTemplate = new KafkaTemplate<>(producerFactory());
         kafkaTemplate.setDefaultTopic(KAFKA_BID_TOPIC);
         return kafkaTemplate;
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void runExternalTopicPublisher() {
+        Map<String, Object> headers = new HashMap<>();
+        String eventId = UUID.randomUUID().toString();
+        headers.put(EVENT_ID, eventId);
+        headers.put(EVENT_NAME, "BIG_ERROR");
+        Message<String> message = MessageBuilder.createMessage("This is a demo message with an error", new MessageHeaders(headers));
+        kafkaTemplate.setDefaultTopic(EXTERNAL_TOPIC);
+        kafkaTemplate.send(message);
     }
 
     @Scheduled(fixedRate = 60000)

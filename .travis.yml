@@ -1,6 +1,0 @@
-language: java
-script:
-  - cd pubsubly-api
-  - mvn install
-  - cd ../pubsubly-service
-  - mvn install

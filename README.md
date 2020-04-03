@@ -1,6 +1,6 @@
 # pubsubly
 
-[![Build Status](https://travis-ci.com/wkennedy/pubsubly.svg?branch=master)](https://travis-ci.com/wkennedy/pubsubly)
+![Java CI](https://github.com/wkennedy/pubsubly/workflows/Java%20CI/badge.svg?branch=dynamic_topics)
 
 ## What is it?
 
@@ -30,16 +30,18 @@ Then from pubsubly/docker run:
 Once everything is up and running you can navigate to http://localhost:3001 and see the Pubsubly UI interface.
 
 ## Quickstart - Local
-First follow the build instructions for building pubsubly-api and pubsubly-service below ([How to build](#how-to-build)).
-Once you clone the repo, if you don't already have access to Kafka brokers you can start Kafka with the docker-compose.yml file in pubsubly/docker:
+Once you clone the repo, if you don't already have access to Kafka brokers you can start Kafka with the docker-compose-kafka.yml file in pubsubly/docker.
+First you need to create a network that is used by Kafka and Pubsubly, then you need to start the services:
 
-    docker-compose up
+    docker network create pubsubly-network
     
-If you aren't running Kafka locally, then you'll have update the application.yml with the broker URLs. In the application.yml in the pubsubly-service resources, update:
+    docker-compose -f docker-compose-kafka.yml -f docker-compose.yml up
+    
+If you aren't running Kafka locally, then you'll have update the application.yml with the broker URLs. In the application.yml in the pubsubly/docker/ folder resources, update:
 
     spring:
       kafka:
-        bootstrap-servers: localhost:9092    
+        bootstrap-servers: <IP or hostname of Kafka broker>:9092    
         
 Also update the topics you want to listen to either with a pattern OR topic names:
 
@@ -49,14 +51,9 @@ or
 
     kafka.topic.names:
     
-Then you can start the server either through you Spring-Boot supported IDE or from the pubsubly-service root:
+Then you can start the server through docker-compose:
 
-    mvn spring-boot:run
-    
-To run the pubsubly-ui go to the pubsubly-ui root and do:
-
-    npm install
-    npm run dev
+    docker-compsose -f docker-compose.yml up
     
 Then navigate to localhost:3001 in your browser.
 
@@ -106,6 +103,10 @@ This demo demonstrates the use of 3 different messaging platforms and the abilit
 The demo runs a basic simulator that produces events. The event chains are triggered every 60 seconds and they simulate the creation of a user, the user getting a session stored in Redis and the sending of user data to a legacy system using ActiveMQ.
 The simulation also shows a series of bids and asks on a product, eventually resulting in a match which creates an order.
 
+To run the demo execute the following from pubsubly/docker:
+
+    docker-compose -f docker-compose-demo.yml up
+
 ![Image](images/home_page.PNG?raw=true)
 This image shows the home page. The home page consists of a bar graph that shows the topics and the amount of messages from each topic. It also has a bubble chart that depicts the amount of messages processed per day per hour. This is to bring any attention to times of the day where message flow is high.
 The "Latest messages" section is a live display of the last 50 messages processed. The charts do not automatically update, so the page needs to be refreshed to reflect the latest numbers. 
@@ -132,6 +133,10 @@ Now let's go to the menu in the upper left corner and click the search button in
 
 The search page allows you to search by specific tag values, header keys and values, or text within the payload. In this example we performed a search for messages that contained the text "Yeezy".
 
+![Image](images/kafka_listeners.PNG?raw=true)
+
+The listeners page allows you to add and remove additional Kafka topic names or topic patterns. 
+Messages will automatically start being consumed from topics matching the new names or patterns.
 
 ## How to build
 
@@ -179,6 +184,9 @@ The main configuration for Pubsubly is setting the plugin-processors. The proces
         - id: eventName
           value: eventName
           description: This is the event name
+          patternValueMonitors:
+            - regexPattern: The regex pattern you want to match for this value, example '.*ERROR.*'
+              priority: Possible values - NORMAL, LOW, MEDIUM, HIGH
         - id: sku
           value: sku
           description: ID of the product
