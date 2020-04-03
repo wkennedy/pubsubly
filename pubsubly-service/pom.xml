@@ -203,11 +203,16 @@
     </build>
 
     <repositories>
-        <repository>
-            <id>github</id>
-            <name>GitHub wkennedy Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/wkennedy/pubsubly</url>
-        </repository>
-    </repositories>
+    <repository>
+        <id>oss.sonatype.org-snapshot</id>
+        <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
 
 </project>

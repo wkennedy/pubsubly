@@ -3,21 +3,21 @@ version: '3.5'
 services:
 
   pubsubly-service:
-    image: "waggins/pubsubly-service:v4"
+    image: "waggins/pubsubly-service:v1.1"
     networks:
-      - service-pubsubly-network
+      - service_pubsubly-network
     ports:
       - "9000:9000"
     volumes:
       - ./config:/config
     environment:
-      - SPRING_CONFIG_LOCATION=file:/config/application-local.yml
+      - SPRING_CONFIG_LOCATION=file:/config/application.yml
       - SPRING_PROFILES_ACTIVE=example
 
   pubsubly-ui:
-    image: "waggins/pubsubly-ui:v2"
+    image: "waggins/pubsubly-ui:v1.1"
     networks:
-      - service-pubsubly-network
+      - service_pubsubly-network
     ports:
       - "3001:3001"
     links:
@@ -26,6 +26,6 @@ services:
       - pubsubly-service
 
 networks:
-  service-pubsubly-network:
+  service_pubsubly-network:
     external:
       name: pubsubly-network

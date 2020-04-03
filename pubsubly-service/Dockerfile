@@ -1,3 +1,4 @@
+#version 1.1
 FROM java:8
 VOLUME /tmp
 ADD /target/pubsubly-service.jar app.jar

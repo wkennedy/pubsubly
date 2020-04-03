@@ -90,7 +90,7 @@ services:
 #      - "15672:15672"
 
   pubsubly-service:
-    image: "waggins/pubsubly-service:v4"
+    image: "waggins/pubsubly-service:v1.1"
     networks:
       - pubsubly-network
     ports:
@@ -108,7 +108,7 @@ services:
       - SPRING_PROFILES_ACTIVE=demo
 
   pubsubly-ui:
-    image: "waggins/pubsubly-ui:v2"
+    image: "waggins/pubsubly-ui:v1.1"
     networks:
       - pubsubly-network
     ports:
