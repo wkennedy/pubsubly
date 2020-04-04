@@ -1,3 +1,5 @@
+#version 1.1
+
 FROM node:10
 
 # Setting working directory. All the path will be relative to WORKDIR

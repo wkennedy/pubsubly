@@ -14,7 +14,7 @@ public interface Processor extends PluginMetadata {
     /**
      * @param message Match an identifier in the headers or message
      * @param headers Match an identifier in the headers or message
-     * @param tag @{@link Tag} Match an identifier in the message or headers with that of the tag value
+     * @param tag Match an identifier in the message or headers with that of the tag value
      * @return String value of the data that matches the identifier (header, key, variable) in the message or headers
      */
     String process(Message message, MessageHeaders headers, Tag tag);

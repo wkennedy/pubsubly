@@ -11,11 +11,14 @@ spring:
       enable-auto-commit: false
     listener:
       ack-mode: record
-
+    topic-pattern: DEMO-.*
   activemq:
     broker-url: failover://tcp://activemq:61616
   jms:
     pub-sub-domain: true
+  redis:
+    host: redis
+    port: 6379
 
 #  datasource:
 #    url: jdbc:h2:mem:AZ;DB_CLOSE_DELAY=-1
@@ -32,7 +35,9 @@ spring:
 #      dialect: org.hibernate.dialect.H2Dialect
 
 
-kafka.topic.pattern: PREFIX-.*
+activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
+pubsubly.redis.enabled: true
+redis.topic.pattern: REDIS-USER-SESSION
 
 plugin-processors:
   tags:
@@ -48,10 +53,18 @@ plugin-processors:
     - id: eventName
       value: eventName
       description: This is the event name
+      patternValueMonitors:
+        - regexPattern: '.*ERROR.*'
+          priority: HIGH
+    - id: sku
+      value: sku
+      description: ID of the product
   processors:
     - id: headerProcessorPlugin
+    - id: redisMessageHeaderProcessorPlugin
 
 persistMessages.enabled: false
+
 server:
   port: 9000
 

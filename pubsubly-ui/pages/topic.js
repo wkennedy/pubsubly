@@ -8,6 +8,7 @@ import {host, jsonTreeTheme} from "../config";
 import {Container} from "@material-ui/core";
 import Tooltip from "@material-ui/core/Tooltip";
 import {getTooltipForTag} from "../displayUtil";
+import color from "@material-ui/core/colors/red";
 
 function getColumns(props) {
     let columns =     [
@@ -25,6 +26,16 @@ function getColumns(props) {
                     cellData = rowData.message.headers.kafka_receivedTimestamp;
                 }
                 return new Date(cellData).toISOString();
+            }
+        },
+        {
+            title: 'Priority', field: 'message.headers.timestamp',
+            render: rowData => {
+                if (rowData.priority === 'HIGH') {
+                    return <span style={{color: "red"}}>{rowData.priority}</span>;
+                } else {
+                    return rowData.priority;
+                }
             }
         }
     ];

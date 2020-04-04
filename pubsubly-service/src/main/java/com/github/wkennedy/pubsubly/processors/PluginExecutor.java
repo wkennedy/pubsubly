@@ -3,9 +3,11 @@ package com.github.wkennedy.pubsubly.processors;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.benmanes.caffeine.cache.Cache;
+import com.github.wkennedy.pubsubly.api.Priority;
 import com.github.wkennedy.pubsubly.dao.entities.PubsublyMessagesEntity;
 import com.github.wkennedy.pubsubly.dao.repositories.PubsublyMessageRepository;
 import com.github.wkennedy.pubsubly.models.MessageResource;
+import com.github.wkennedy.pubsubly.plugins.HeaderValuePriorityProcessorPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class PluginExecutor {
     private final TopicProcessor topicProcessor;
 
     @Autowired
+    private HeaderValuePriorityProcessorPlugin headerValuePriorityProcessorPlugin;
+
+    @Autowired
     private Cache<String, MessageResource> messageCache;
 
     private List<PluginProcessor> pluginProcessors = new ArrayList<>();
@@ -46,6 +51,9 @@ public class PluginExecutor {
 
     @Autowired
     private Queue<MessageResource> latestMessageCache;
+
+    @Autowired
+    private Queue<MessageResource> highPriorityMessageCache;
 
     @Autowired
     public PluginExecutor(TopicProcessor topicProcessor) {
@@ -63,9 +71,11 @@ public class PluginExecutor {
         topicProcessor.process(getTopicName(message.getHeaders()), messageUUID);
         Message mutableMessage = MutableMessageBuilder.fromMessage(message).build();
         removeUnwantedHeaders(mutableMessage);
-        MessageResource messageResource = new MessageResource(mutableMessage, headerKeyMap);
+        Priority priority = headerValuePriorityProcessorPlugin.process(headerKeyMap);
+        MessageResource messageResource = new MessageResource(mutableMessage, headerKeyMap, priority);
         messageCache.put(messageUUID, messageResource);
         latestMessageCache.add(messageResource);
+        highPriorityMessageCache.add(messageResource);
         persistMessage(mutableMessage, messageUUID, persistToDatabase);
     }
 

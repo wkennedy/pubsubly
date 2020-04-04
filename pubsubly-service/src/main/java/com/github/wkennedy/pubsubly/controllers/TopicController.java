@@ -6,7 +6,7 @@ import com.github.wkennedy.pubsubly.models.Page;
 import com.github.wkennedy.pubsubly.models.TextCountResource;
 import com.github.wkennedy.pubsubly.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +20,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RequestMapping("/topics")
 @RestController
@@ -38,11 +38,11 @@ public class TopicController {
     }
 
     @GetMapping
-    public @ResponseBody List<Resource<String>> getTopics() {
-        List<Resource<String>> resources = new ArrayList<>();
+    public @ResponseBody List<EntityModel<String>> getTopics() {
+        List<EntityModel<String>> resources = new ArrayList<>();
         Set<String> topics = topicCache.asMap().keySet();
         for (String topic : topics) {
-            Resource<String> resource = new Resource<>(topic);
+            EntityModel<String> resource = new EntityModel<>(topic);
             resource.add(linkTo(methodOn(TopicController.class).getTopicData(topic)).withSelfRel());
             resources.add(resource);
         }

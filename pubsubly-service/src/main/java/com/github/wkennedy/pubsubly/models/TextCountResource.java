@@ -1,8 +1,8 @@
 package com.github.wkennedy.pubsubly.models;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
-public class TextCountResource extends ResourceSupport {
+public class TextCountResource extends RepresentationModel {
     private String text;
     private String count;
 

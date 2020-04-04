@@ -10,6 +10,7 @@ spring:
       enable-auto-commit: false
     listener:
       ack-mode: record
+    topic-pattern: DEMO-.*
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
   data:
@@ -37,7 +38,6 @@ persistMessages.enabled: false
 #      dialect: org.hibernate.dialect.H2Dialect
 
 
-kafka.topic.pattern: DEMO-.*
 #activemq.topic.names: ACTIVEMQ_LEGACY_USER_DATA_TOPIC
 #pubsubly.redis.enabled: true
 #redis.topic.pattern: REDIS-USER-SESSION
@@ -56,5 +56,12 @@ plugin-processors:
     - id: eventName
       value: eventName
       description: This is the event name
+      patternValueMonitors:
+        - regexPattern: '.*ERROR.*'
+          priority: HIGH
   processors:
     - id: headerProcessorPlugin
+
+springdoc:
+  swagger-ui:
+    path: /swagger/swagger-ui.html

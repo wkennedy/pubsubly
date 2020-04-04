@@ -79,6 +79,15 @@ public class CacheConfig {
         return create(50);
     }
 
+    /**
+     *
+     * @return An evicting queue with the last 1000 messages processed
+     */
+    @Bean
+    public Queue<MessageResource> highPriorityMessageCache() {
+        return create(1000);
+    }
+
     //TODO make the schedule configurable
 
     /**

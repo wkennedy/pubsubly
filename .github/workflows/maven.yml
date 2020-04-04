@@ -8,16 +8,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v1
-      with:
-        java-version: 1.8
-    - name: Build Pubsubly API with Maven
-      run: mvn -B install --file ./pubsubly-api/pom.xml
-    - name: Deploy Pubsubly API with Maven
-      run: mvn deploy --file ./pubsubly-api/pom.xml  
-    - name: Build Pubsubly Redis Message Header Plugin with Maven
-      run: mvn -B install --file ./redis-message-header-plugin/pom.xml
-    - name: Build Pubsubly Service with Maven
-      run: mvn -B package --file ./pubsubly-service/pom.xml
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      - name: Build Pubsubly API with Maven
+        run: mvn --settings settings.xml -B install --file ./pubsubly-api/pom.xml
+      - name: Deploy Pubsubly API with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run:
+          mvn --settings settings.xml deploy --file ./pubsubly-api/pom.xml
+      - name: Build Pubsubly Redis Message Header Plugin with Maven
+        run: mvn --settings settings.xml -U -B install --file ./redis-message-header-plugin/pom.xml
+      - name: Deploy Pubsubly Redis Message Header Plugin with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run:
+          mvn --settings settings.xml deploy --file ./redis-message-header-plugin/pom.xml
+      - name: Build Pubsubly Service with Maven
+        run: mvn -B package --file ./pubsubly-service/pom.xml
+      - name: Deploy Pubsubly Service with Maven
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+        run:
+          mvn --settings settings.xml deploy --file ./pubsubly-service/pom.xml
