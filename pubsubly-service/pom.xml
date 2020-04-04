@@ -8,6 +8,20 @@
     <version>0.0.1-SNAPSHOT</version>
 
     <name>pubsubly-service</name>
+    <description>
+        Pubsubly is an application to track messages as they flow through a pub/sub backed message driven architecture.
+
+        It does this by allowing users to group messages by metadata through the use of pluggable Spring auto-configurations. As each message enters the system it is processed and grouped according to one of the user defined tags.
+    </description>
+    <url>https://github.com/wkennedy/pubsubly</url>
+
+    <licenses>
+        <license>
+            <name>Apache license 2.0</name>
+            <url>https://raw.githubusercontent.com/wkennedy/pubsubly/master/LICENSE</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -24,7 +38,7 @@
 
     <developers>
         <developer>
-            <id>kennedyw</id>
+            <id>wkennedy</id>
             <name>Will Kennedy</name>
             <email>wildo.waggins@gmail.com</email>
         </developer>
