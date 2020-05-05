@@ -57,7 +57,7 @@ public class DemoService {
     private static final String KAFKA_BID_TOPIC = "DEMO-KAFKA_BID_TOPIC";
     private static final String KAFKA_ORDER_TOPIC = "DEMO-KAFKA_ORDER_TOPIC";
     private static final String KAFKA_USER_TOPIC = "DEMO-KAFKA_USER_TOPIC";
-    private static final String EXTERNAL_TOPIC = "EXTERNAL_TOPIC";
+    private static final String EXTERNAL_TOPIC = "DEMO-EXTERNAL_TOPIC";
     private static final String REDIS_TOPIC = "REDIS-USER-SESSION";
 
     private final StringRedisTemplate stringRedisTemplate;
