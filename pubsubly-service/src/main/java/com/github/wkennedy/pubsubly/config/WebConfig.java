@@ -11,9 +11,16 @@ import io.swagger.v3.oas.models.info.License;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.hateoas.client.LinkDiscoverer;
+import org.springframework.hateoas.client.LinkDiscoverers;
+import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
+import org.springframework.plugin.core.SimplePluginRegistry;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -23,6 +30,13 @@ public class WebConfig implements WebMvcConfigurer {
         jackson2ObjectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         jackson2ObjectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         jackson2ObjectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+    }
+
+    @Bean
+    public LinkDiscoverers discoverers() {
+        List<LinkDiscoverer> plugins = new ArrayList<>();
+        plugins.add(new CollectionJsonLinkDiscoverer());
+        return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
     }
 
     @Override
