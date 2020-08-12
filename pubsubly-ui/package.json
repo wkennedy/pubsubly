@@ -41,7 +41,7 @@
     "styled-jsx": "^3.2.1",
     "express-status-monitor": "latest",
     "express-basic-auth": "latest",
-    "serialize-javascript": "^2.1.1"
+    "serialize-javascript": "^3.1.0"
   },
   "devDependencies": {
     "date-fns": "^2.1.0",
