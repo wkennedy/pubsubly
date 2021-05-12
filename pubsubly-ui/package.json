@@ -19,7 +19,7 @@
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.6.0",
     "@material-ui/pickers": "^3.2.7",
-    "chart.js": "^2.9.2",
+    "chart.js": "^2.9.4",
     "clsx": "^1.0.4",
     "compression": "^1.7.4",
     "cross-env": "^6.0.3",
