@@ -28,7 +28,7 @@
     "http-proxy-middleware": "latest",
     "isomorphic-unfetch": "^3.0.0",
     "material-table": "^1.53.0",
-    "next": "^9.1.2",
+    "next": "^11.1.0",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-d3-graph": "^2.3.0",
