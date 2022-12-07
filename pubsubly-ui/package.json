@@ -24,7 +24,7 @@
     "compression": "^1.7.4",
     "cross-env": "^6.0.3",
     "d3": "^5.12.0",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "http-proxy-middleware": "latest",
     "isomorphic-unfetch": "^3.0.0",
     "material-table": "^1.53.0",
